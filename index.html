@@ -379,44 +379,72 @@ body {
 </section>
 
 <!-- ══ S2 The Shift ════════════════════════════════════════════ -->
-<section class="slide light" id="s2">
-  <div class="tag">PART 1 · SENSING THE SHIFT</div>
-  <h2 class="h2">我们的危机意识</h2>
-  <p class="sub">Our Awareness &nbsp;·&nbsp; 这不是预测，是卖家已经感受到的现实</p>
+<section class="slide dark2" id="s2">
+  <div class="tag accent">PART 1 · SKILL ARCHITECTURE</div>
+  <h2 class="h2" style="color:#fff">Buy Anything — How a Skill Becomes a Shopping Agent</h2>
+  <p class="sub">One config file. No code. Full checkout from any chat interface.</p>
 
-  <!-- 第一段：危机感知 -->
-  <div style="margin-top:40px; display:grid; grid-template-columns:6px 1fr; gap:28px; align-items:stretch;">
-    <div style="background:var(--accent); border-radius:3px;"></div>
-    <div>
-      <div style="font-size:0.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px;">第一段 · 我们的危机感知</div>
-      <p style="font-size:1.2rem; color:var(--mid); line-height:1.9; font-weight:500;">
-        作为卖家，我们感受到了一个变化——买家触达商品的方式正在改变。<br>
-        以前是打开 Amazon 搜索框；现在越来越多人是<strong style="color:var(--navy)">在对话里完成购物决策，甚至直接下单</strong>。<br>
-        这对我们来说是个信号：<strong style="color:var(--red)">流量入口在迁移。</strong>
-      </p>
-      <p style="font-size:0.9rem; color:var(--muted); margin-top:10px; font-style:italic;">As sellers, we noticed: buyers are completing purchase decisions inside conversations — even placing orders there. The traffic entry point is shifting.</p>
+  <!-- 三层架构 -->
+  <div style="display:grid;grid-template-columns:1fr 48px 1fr 48px 1fr;gap:0;margin-top:36px;align-items:stretch;">
+
+    <!-- Layer 1: User Intent -->
+    <div style="background:#1e1e1e;border:1.5px solid rgba(255,107,53,.3);border-radius:12px;padding:26px 24px;">
+      <div style="font-size:0.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#ff6b35;margin-bottom:14px;">① User Intent</div>
+      <div style="font-size:1.5rem;margin-bottom:10px;">💬</div>
+      <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:10px;">Natural Language</div>
+      <div style="font-size:0.88rem;color:#a3a3a3;line-height:1.75;">User says <em style="color:#fed7aa">"Buy this for me"</em> + product URL in any chat app — Signal, Discord, Telegram, WhatsApp</div>
+      <div style="margin-top:16px;padding:10px 14px;background:rgba(255,107,53,.08);border-radius:8px;border-left:3px solid #ff6b35;font-size:0.8rem;color:#fed7aa;font-family:monospace;">
+        "Buy https://amazon.com/dp/B0DJLKV4N9"
+      </div>
+    </div>
+
+    <!-- Arrow 1 -->
+    <div style="display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:#ff6b35;font-weight:900;">→</div>
+
+    <!-- Layer 2: Skill Logic -->
+    <div style="background:#1e1e1e;border:1.5px solid rgba(255,107,53,.5);border-radius:12px;padding:26px 24px;position:relative;">
+      <div style="position:absolute;top:-1px;left:-1px;right:-1px;height:4px;background:linear-gradient(90deg,#ff6b35,#ef4444);border-radius:12px 12px 0 0;"></div>
+      <div style="font-size:0.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#ff6b35;margin-bottom:14px;">② SKILL.md — The Brain</div>
+      <div style="font-size:1.5rem;margin-bottom:10px;">⚙️</div>
+      <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:10px;">One Config File</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px;">
+        <div style="font-size:0.82rem;color:#e5e5e5;padding:7px 12px;background:rgba(255,255,255,.05);border-radius:6px;">1. Collect shipping address</div>
+        <div style="font-size:0.82rem;color:#e5e5e5;padding:7px 12px;background:rgba(255,255,255,.05);border-radius:6px;">2. Open BasisTheory card capture</div>
+        <div style="font-size:0.82rem;color:#e5e5e5;padding:7px 12px;background:rgba(255,255,255,.05);border-radius:6px;">3. Submit order → Rye API</div>
+        <div style="font-size:0.82rem;color:#e5e5e5;padding:7px 12px;background:rgba(255,255,255,.05);border-radius:6px;">4. Poll order status every 5s</div>
+        <div style="font-size:0.82rem;color:#fed7aa;padding:7px 12px;background:rgba(255,107,53,.1);border-radius:6px;">5. Confirm + save token to memory</div>
+      </div>
+    </div>
+
+    <!-- Arrow 2 -->
+    <div style="display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:#ff6b35;font-weight:900;">→</div>
+
+    <!-- Layer 3: Infrastructure -->
+    <div style="background:#1e1e1e;border:1.5px solid rgba(255,255,255,.1);border-radius:12px;padding:26px 24px;">
+      <div style="font-size:0.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#a3a3a3;margin-bottom:14px;">③ Infrastructure</div>
+      <div style="font-size:1.5rem;margin-bottom:10px;">🔌</div>
+      <div style="font-size:1rem;font-weight:700;color:#fff;margin-bottom:12px;">Two APIs, Zero Code</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="padding:12px 14px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.08);">
+          <div style="font-size:0.82rem;font-weight:700;color:#fb923c;margin-bottom:3px;">BasisTheory</div>
+          <div style="font-size:0.78rem;color:#a3a3a3;">PCI-compliant card vault. Card details never touch the chat — tokenized in browser directly.</div>
+        </div>
+        <div style="padding:12px 14px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.08);">
+          <div style="font-size:0.82rem;font-weight:700;color:#fb923c;margin-bottom:3px;">Rye API</div>
+          <div style="font-size:0.78rem;color:#a3a3a3;">Universal checkout layer. Supports Amazon + any Shopify store. 3% fee on Amazon, free 2-day shipping on orders $15+.</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 第二段：技术趋势 -->
-  <div style="margin-top:28px; display:grid; grid-template-columns:6px 1fr; gap:28px; align-items:stretch;">
-    <div style="background:var(--teal); border-radius:3px;"></div>
-    <div>
-      <div style="font-size:0.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); margin-bottom:14px;">第二段 · 我们观察到的技术趋势</div>
-      <p style="font-size:1.2rem; color:var(--mid); line-height:1.9; font-weight:500;">
-        我们关注到一个方向——购物正在从「网站」变成「指令」。<br>
-        用户在任何一个对话界面里说一句话，<strong style="color:var(--navy)">Agent 就能帮他完成从搜索、比较到下单的全链路</strong>。<br>
-        这个能力，<strong style="color:var(--red)">现在已经有第三方在做了。</strong>
-      </p>
-      <p style="font-size:0.9rem; color:var(--muted); margin-top:10px; font-style:italic;">Shopping is moving from "website" to "instruction". One sentence in any chat — Agent handles search, comparison, and checkout. Third parties are already doing this today.</p>
-    </div>
-  </div>
-
-  <div class="infobar" style="margin-top:28px;">
-    <span class="ib-label">→ 下一页：</span>数字佐证这个判断有多真实 — Rufus 月活 250M+，日搜索占比 13%，还在加速。
+  <!-- bottom bar -->
+  <div style="margin-top:24px;background:rgba(255,107,53,.1);border:1px solid rgba(255,107,53,.3);border-radius:10px;padding:14px 22px;font-size:0.9rem;color:#fed7aa;display:flex;gap:12px;align-items:center;">
+    <span style="font-size:1.1rem;">⚡</span>
+    <span><strong style="color:#ff6b35">Key insight:</strong> The Skill is just a markdown config file — no backend, no deployment, no code. The AI reads it and becomes a personal shopper. This is what "website as CLI" actually means in practice.</span>
   </div>
 </section>
 
+<!-- ══ S3 Data ══════════════════════════════════════════════════ -->
 <!-- ══ S3 Data ══════════════════════════════════════════════════ -->
 <section class="slide light" id="s3">
   <div class="tag">PART 1 · DATA PROOF</div>
