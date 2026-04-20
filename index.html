@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chinese Sellers in the Agent Era</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy:   #ff6b35;
+  --navy2:  #181818;
+  --accent: #ff6b35;
+  --teal:   #fb923c;
+  --red:    #ef4444;
+  --ice:    #fed7aa;
+  --light:  #111111;
+  --mid:    #e5e5e5;
+  --muted:  #a3a3a3;
+  --white:  #ffffff;
+  --card:   rgba(255,255,255,0.05);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', 'Noto Sans SC', sans-serif;
+  background: #0d0d0d;
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ─── Slide layout ─────────────────────────────────────────── */
+.slide {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6vh 9vw;
+  position: relative;
+  overflow: hidden;
+}
+.slide.light { background: #161616; color: #e5e5e5; }
+.slide.dark  { background: #0d0d0d;  color: var(--white); }
+.slide.dark2 { background: #181818; color: var(--white); }
+
+/* top accent bar */
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg,#ff6b35,#ef4444);
+}
+.slide.red-bar::before { background: var(--red); }
+.slide.teal-bar::before { background: var(--teal); }
+
+/* ─── Nav dots ──────────────────────────────────────────────── */
+#nav {
+  position: fixed;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  z-index: 999;
+}
+#nav a {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(255,107,53,0.3);
+  display: block;
+  transition: all .3s;
+  text-decoration: none;
+}
+#nav a.active, #nav a:hover { background: var(--accent); transform: scale(1.4); }
+
+/* ─── Section tag ───────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  padding: 5px 14px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  background: var(--navy);
+  color: var(--white);
+  margin-bottom: 22px;
+}
+.slide.light .tag { background: rgba(255,107,53,.15); color: #ff6b35; border: 1px solid rgba(255,107,53,.3); }
+.tag.red   { background: var(--red); }
+.tag.teal  { background: var(--teal); }
+.tag.accent { background: var(--accent); color: var(--navy); }
+
+/* ─── Typography ────────────────────────────────────────────── */
+.h1 { font-size: clamp(2.8rem,5.5vw,5rem); font-weight: 900; line-height: 1.1; }
+.h2 { font-size: clamp(1.9rem,3.2vw,3rem); font-weight: 800; line-height: 1.15; color: #ff6b35; }
+.sub { font-size: clamp(1rem,1.5vw,1.25rem); opacity: .75; font-style: italic; margin-top: 12px; }
+.slide.light .h2 { color: #ff6b35; }
+.slide.dark .h2, .slide.dark2 .h2 { color: var(--white); }
+
+/* ─── Cards ─────────────────────────────────────────────────── */
+.cards { display: grid; gap: 22px; margin-top: 36px; }
+.cards.c3 { grid-template-columns: repeat(3,1fr); }
+.cards.c4 { grid-template-columns: repeat(4,1fr); }
+.cards.c2 { grid-template-columns: repeat(2,1fr); }
+
+.card {
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 30px 26px;
+  border: 1.5px solid rgba(255,107,53,.2);
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(255,107,53,.15); }
+.card .ct { position: absolute; top: 0; left: 0; right: 0; height: 6px; }
+.card .cn { font-size: 3rem; font-weight: 900; line-height: 1; margin: 12px 0 8px; }
+.card .cl { font-size: 0.95rem; color: var(--muted); line-height: 1.6; }
+.card .ctitle { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+.card.dark-card {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  color: var(--white);
+}
+.card.dark-card .ctitle { color: var(--white); }
+
+/* ─── Flow steps ────────────────────────────────────────────── */
+.flow { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 32px; align-items: center; }
+.step {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 12px;
+  padding: 26px 18px;
+  text-align: center;
+  position: relative;
+}
+.step .icon { font-size: 2.8rem; margin-bottom: 12px; }
+.step .stitle { font-size: 1rem; font-weight: 700; line-height: 1.4; }
+.step .ssub { font-size: 0.88rem; color: var(--ice); margin-top: 6px; opacity: .85; }
+.arrow { font-size: 1.8rem; color: var(--accent); text-align: center; font-weight: 900; }
+
+/* ─── Layers ────────────────────────────────────────────────── */
+.layers { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+.layer {
+  border-radius: 10px;
+  padding: 22px 28px;
+  position: relative;
+  border-left: 7px solid var(--accent);
+}
+.layer.l1 { background: var(--ice); color: var(--navy); }
+.layer.l2 { background: var(--navy); color: var(--white); }
+.layer.l3 { background: var(--teal); color: var(--white); }
+.layer .ltitle { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.layer .ldesc  { font-size: 0.95rem; opacity: .85; line-height: 1.6; }
+.ldown { text-align: center; font-size: 1.4rem; color: var(--accent); font-weight: 700; margin: 4px 0; }
+
+/* ─── Risk cards ────────────────────────────────────────────── */
+.risk-list { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
+.risk {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 22px 26px 22px 36px;
+  position: relative;
+  border: 1.5px solid rgba(255,255,255,.1);
+}
+.risk::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 8px;
+  border-radius: 10px 0 0 10px;
+}
+.risk.r1::before { background: var(--red); }
+.risk.r2::before { background: var(--accent); }
+.risk.r3::before { background: var(--teal); }
+.risk .rnum { font-size: 1.25rem; font-weight: 900; margin-right: 12px; }
+.risk .rtitle { font-size: 1.05rem; font-weight: 700; color: var(--navy); }
+.risk .rcn { font-size: 0.88rem; color: var(--muted); }
+.risk .rdesc { font-size: 0.92rem; color: var(--mid); margin-top: 8px; line-height: 1.65; }
+
+/* ─── Before / After ─────────────────────────────────────────── */
+.ba { display: grid; grid-template-columns: 1fr 70px 1fr; gap: 0; margin-top: 32px; align-items: stretch; }
+.ba-col {
+  border-radius: 12px;
+  padding: 32px 28px;
+}
+.ba-col.before { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); }
+.ba-col.after  { background: rgba(13,148,136,.15);  border: 1px solid rgba(13,148,136,.4); }
+.ba-label { font-size: 0.85rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 20px; }
+.ba-label.before { color: var(--muted); }
+.ba-label.after  { color: var(--accent); }
+.ba-arrow { display: flex; align-items: center; justify-content: center; font-size: 2.8rem; color: var(--accent); font-weight: 900; }
+.ba li { list-style: none; padding: 8px 0; font-size: 1rem; line-height: 1.6; }
+.ba .before li::before { content: '• '; color: var(--muted); }
+.ba .after  li::before { content: '✓ '; color: var(--teal); font-weight: 700; }
+
+/* ─── Timeline ───────────────────────────────────────────────── */
+.timeline { position: relative; margin-top: 44px; padding: 0 20px; }
+.tl-line {
+  position: absolute;
+  top: 26px;
+  left: 8%;
+  right: 8%;
+  height: 3px;
+  background: var(--navy);
+  z-index: 0;
+}
+.tl-items { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; position: relative; z-index: 1; }
+.tl-item { text-align: center; }
+.tl-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  margin: 10px auto 22px;
+  border: 3px solid var(--light);
+}
+.tl-card {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 20px 18px;
+  border: 1.5px solid rgba(255,255,255,.1);
+}
+.tl-year { font-size: 1rem; font-weight: 800; margin-bottom: 10px; }
+.tl-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.6; }
+
+/* ─── COSMO grid ─────────────────────────────────────────────── */
+.cosmo { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 22px; }
+.cosmo-card {
+  background: var(--white);
+  border-radius: 10px;
+  padding: 18px 20px 18px 24px;
+  border: 1.5px solid rgba(255,255,255,.1);
+  position: relative;
+}
+.cosmo-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  border-radius: 10px 0 0 10px;
+}
+.cosmo-card.ct { }
+.cosmo-card.ct1::before { background: var(--teal); }
+.cosmo-card.ct2::before { background: var(--accent); }
+.cosmo-card.ct3::before { background: var(--navy); }
+.cosmo-rel { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+.cosmo-q   { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+
+/* ─── Info bar ───────────────────────────────────────────────── */
+.infobar {
+  background: rgba(255,107,53,.12);
+  border: 1px solid rgba(255,107,53,.3);
+  border-radius: 10px;
+  padding: 18px 26px;
+  margin-top: 22px;
+  font-size: 0.95rem;
+  color: var(--white);
+  line-height: 1.7;
+}
+.infobar .ib-label { color: var(--accent); font-weight: 700; margin-right: 8px; }
+.slide.dark .infobar, .slide.dark2 .infobar { background: rgba(255,255,255,.07); }
+
+/* ─── Quote ──────────────────────────────────────────────────── */
+.quote-box {
+  background: rgba(255,255,255,.06);
+  border-left: 6px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 40px 44px;
+  margin-top: 36px;
+}
+.quote-en { font-size: clamp(1.2rem,2.2vw,1.75rem); font-weight: 700; line-height: 1.6; color: var(--white); }
+.quote-cn { font-size: clamp(1rem,1.6vw,1.25rem); color: var(--ice); font-style: italic; margin-top: 22px; line-height: 1.85; }
+.quote-sig { color: var(--accent); font-size: 1rem; margin-top: 24px; }
+
+/* ─── Red bullets ────────────────────────────────────────────── */
+.red-bullets { margin-top: 26px; display: flex; flex-direction: column; gap: 10px; }
+.rb { font-size: 1rem; color: #FF8A80; padding: 8px 0; border-bottom: 1px solid rgba(255,138,128,.15); line-height: 1.6; }
+.rb:last-child { border-bottom: none; }
+
+/* ─── Blind spot compare ─────────────────────────────────────── */
+.bsc { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 32px; }
+.bsc-col { background: var(--white); border-radius: 12px; padding: 28px; border: 1.5px solid rgba(255,255,255,.1); }
+.bsc-col.has { border-top: 5px solid var(--teal); }
+.bsc-col.miss{ border-top: 5px solid var(--muted); }
+.bsc-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; color: var(--navy); }
+.bsc-item { font-size: 0.92rem; color: var(--mid); padding: 6px 0; line-height: 1.5; }
+.bsc-item::before { content: '• '; }
+
+/* ─── Accent bottom bar ──────────────────────────────────────── */
+.accent-bar {
+  background: var(--accent);
+  border-radius: 8px;
+  padding: 16px 22px;
+  margin-top: 20px;
+  font-size: 0.88rem;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* ─── Cover specifics ────────────────────────────────────────── */
+.cover-left-bar {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 7px;
+  background: var(--accent);
+}
+.cover-deco {
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 380px; height: 380px;
+  border-radius: 50%;
+  background: rgba(202,220,252,.07);
+  pointer-events: none;
+}
+.cover-deco2 {
+  position: absolute;
+  right: 60px; top: 80px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(244,163,34,.1);
+  pointer-events: none;
+}
+.cover-divider { width: 220px; height: 2px; background: var(--accent); margin: 24px 0; }
+
+/* ─── Slide 13 ───────────────────────────────────────────────── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+
+/* ─── Scroll indicator ───────────────────────────────────────── */
+.scroll-hint {
+  position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+  font-size: 0.72rem; color: rgba(255,255,255,.35); letter-spacing: .08em;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<!-- Nav dots -->
+<nav id="nav">
+  <a href="#s1" title="Cover"></a>
+  <a href="#s2" title="The Shift"></a>
+  <a href="#s3" title="Data"></a>
+  <a href="#s4" title="Threat"></a>
+  <a href="#s5" title="Architecture"></a>
+  <a href="#s6" title="Risks"></a>
+  <a href="#s7" title="Wake-Up"></a>
+  <a href="#s8" title="Judgment"></a>
+  <a href="#s9" title="Listing"></a>
+  <a href="#s10" title="COSMO"></a>
+  <a href="#s11" title="Example"></a>
+  <a href="#s12" title="Workflow"></a>
+  <a href="#s12b" title="Skill Detail"></a>
+  <a href="#s13" title="Gap"></a>
+  <a href="#s14" title="Quote"></a>
+  <a href="#s15" title="End"></a>
+</nav>
+
+<div class="scroll-hint">↓ SCROLL</div>
+
+<!-- ══ S1 Cover ════════════════════════════════════════════════ -->
+<section class="slide dark" id="s1" style="justify-content:center;">
+  <div class="cover-left-bar"></div>
+  <div class="cover-deco"></div>
+  <div class="cover-deco2"></div>
+  <div style="max-width:820px; padding-left:24px;">
+    <div class="tag accent">2026 · Amazon Internal</div>
+    <h1 class="h1" style="margin-top:12px;">SKILL</h1>
+    <p style="font-size:1.5rem; color:var(--accent); margin-top:14px; font-weight:700; letter-spacing:.02em;">即结构化的知识库</p>
+    <p style="font-size:1rem; color:var(--ice); margin-top:10px; font-style:italic; opacity:.8;">Structured Knowledge Systems for the Rufus AI Era</p>
+    <div class="cover-divider"></div>
+    <p style="font-size:0.88rem; color:var(--ice);">任佳伟 &nbsp;·&nbsp; 2026</p>
+  </div>
+</section>
+
+<!-- ══ S2 The Shift ════════════════════════════════════════════ -->
+<section class="slide light" id="s2">
+  <div class="tag">PART 1 · SENSING THE SHIFT</div>
+  <h2 class="h2">我们的危机意识</h2>
+  <p class="sub">Our Awareness &nbsp;·&nbsp; 这不是预测，是卖家已经感受到的现实</p>
+
+  <!-- 第一段：危机感知 -->
+  <div style="margin-top:40px; display:grid; grid-template-columns:6px 1fr; gap:28px; align-items:stretch;">
+    <div style="background:var(--accent); border-radius:3px;"></div>
+    <div>
+      <div style="font-size:0.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--navy); margin-bottom:14px;">第一段 · 我们的危机感知</div>
+      <p style="font-size:1.2rem; color:var(--mid); line-height:1.9; font-weight:500;">
+        作为卖家，我们感受到了一个变化——买家触达商品的方式正在改变。<br>
+        以前是打开 Amazon 搜索框；现在越来越多人是<strong style="color:var(--navy)">在对话里完成购物决策，甚至直接下单</strong>。<br>
+        这对我们来说是个信号：<strong style="color:var(--red)">流量入口在迁移。</strong>
+      </p>
+      <p style="font-size:0.9rem; color:var(--muted); margin-top:10px; font-style:italic;">As sellers, we noticed: buyers are completing purchase decisions inside conversations — even placing orders there. The traffic entry point is shifting.</p>
+    </div>
+  </div>
+
+  <!-- 第二段：技术趋势 -->
+  <div style="margin-top:28px; display:grid; grid-template-columns:6px 1fr; gap:28px; align-items:stretch;">
+    <div style="background:var(--teal); border-radius:3px;"></div>
+    <div>
+      <div style="font-size:0.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--teal); margin-bottom:14px;">第二段 · 我们观察到的技术趋势</div>
+      <p style="font-size:1.2rem; color:var(--mid); line-height:1.9; font-weight:500;">
+        我们关注到一个方向——购物正在从「网站」变成「指令」。<br>
+        用户在任何一个对话界面里说一句话，<strong style="color:var(--navy)">Agent 就能帮他完成从搜索、比较到下单的全链路</strong>。<br>
+        这个能力，<strong style="color:var(--red)">现在已经有第三方在做了。</strong>
+      </p>
+      <p style="font-size:0.9rem; color:var(--muted); margin-top:10px; font-style:italic;">Shopping is moving from "website" to "instruction". One sentence in any chat — Agent handles search, comparison, and checkout. Third parties are already doing this today.</p>
+    </div>
+  </div>
+
+  <div class="infobar" style="margin-top:28px;">
+    <span class="ib-label">→ 下一页：</span>数字佐证这个判断有多真实 — Rufus 月活 250M+，日搜索占比 13%，还在加速。
+  </div>
+</section>
+
+<!-- ══ S3 Data ══════════════════════════════════════════════════ -->
+<section class="slide light" id="s3">
+  <div class="tag">PART 1 · DATA PROOF</div>
+  <h2 class="h2">Rufus: The Numbers Don't Lie</h2>
+  <p class="sub">数字证明：变化正在发生，规模超出大多数卖家的预期</p>
+  <div class="cards c4" style="margin-top:28px;">
+    <div class="card">
+      <div class="ct" style="background:var(--accent);"></div>
+      <div class="cn" style="color:var(--accent);">250M+</div>
+      <div class="cl">Monthly Active Users<br>月活用户</div>
+    </div>
+    <div class="card">
+      <div class="ct" style="background:var(--navy);"></div>
+      <div class="cn" style="color:var(--navy);">13%</div>
+      <div class="cl">Daily Searches via Rufus<br>Rufus 日搜索占比</div>
+    </div>
+    <div class="card">
+      <div class="ct" style="background:var(--teal);"></div>
+      <div class="cn" style="color:var(--teal);">+210%</div>
+      <div class="cl">YoY Interaction Growth<br>交互量同比增长</div>
+    </div>
+    <div class="card">
+      <div class="ct" style="background:var(--red);"></div>
+      <div class="cn" style="color:var(--red);">60%</div>
+      <div class="cl">Higher Purchase Rate<br>对话购买转化提升</div>
+    </div>
+  </div>
+  <div style="margin-top:14px; font-size:0.75rem; color:var(--muted); font-style:italic;">
+    Source: Amazon Q4 2024 Earnings, Bloomberg Intelligence, Marketplace Pulse 2025 estimates
+  </div>
+</section>
+
+<!-- ══ S4 Bypass Threat ════════════════════════════════════════ -->
+<section class="slide dark red-bar" id="s4">
+  <div class="tag red">PART 2 · EXTERNAL THREAT</div>
+  <h2 class="h2">Someone Is Bypassing Amazon.com</h2>
+  <p class="sub">有人正在绕开 Amazon.com，从对话界面完成完整购物交易</p>
+  <div class="flow" style="margin-top:28px; grid-template-columns: 1fr 30px 1fr 30px 1fr 30px 1fr;">
+    <div class="step">
+      <div class="icon">💬</div>
+      <div class="stitle">User in Discord<br>or Telegram</div>
+      <div class="ssub">用户在对话 App</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="icon">🔗</div>
+      <div class="stitle">Drops Amazon<br>product URL</div>
+      <div class="ssub">发送商品链接</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="icon">🤖</div>
+      <div class="stitle">Agent places<br>the order</div>
+      <div class="ssub">Agent 自动下单</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="step">
+      <div class="icon">📦</div>
+      <div class="stitle">Order in Amazon<br>backend</div>
+      <div class="ssub">订单出现在后台</div>
+    </div>
+  </div>
+  <div class="red-bullets">
+    <div class="rb">❌&nbsp; <strong>Ad Revenue Lost</strong> — buyer bypasses Amazon.com entirely; PPC gets zero impressions&nbsp; /&nbsp; 广告曝光归零</div>
+    <div class="rb">❌&nbsp; <strong>Behavioral Data Bypassed</strong> — Amazon loses buyer intent signals for Rufus training&nbsp; /&nbsp; 用户意图数据旁路</div>
+    <div class="rb">❌&nbsp; <strong>Customer Experience Escapes</strong> — returns, loyalty, reviews all flow through third-party&nbsp; /&nbsp; 售后链路失控</div>
+  </div>
+</section>
+
+<!-- ══ S5 Architecture ════════════════════════════════════════ -->
+<section class="slide light" id="s5">
+  <div class="tag">PART 2 · HOW IT WORKS</div>
+  <h2 class="h2">One Config File. No Code. Full Checkout.</h2>
+  <p class="sub">一个配置文件，零代码，完整结账链路 — 技术门槛极低，正在快速扩散</p>
+  <div class="layers">
+    <div class="layer l1">
+      <div class="ltitle">① Conversation Layer &nbsp;对话层</div>
+      <div class="ldesc">Discord · Telegram · WhatsApp · Any chat interface — no dedicated app needed</div>
+    </div>
+    <div class="ldown">▼</div>
+    <div class="layer l2">
+      <div class="ltitle">② Agent Execution Layer &nbsp;Agent 执行层</div>
+      <div class="ldesc">Natural-language config (SKILL.md) defines entire business logic. No code required. &nbsp;/&nbsp; 自然语言配置文件定义完整业务逻辑，零编程。</div>
+    </div>
+    <div class="ldown">▼</div>
+    <div class="layer l3">
+      <div class="ltitle">③ API Services Layer &nbsp;API 服务层</div>
+      <div class="ldesc">BasisTheory — PCI-compliant card tokenization vault &nbsp;+&nbsp; Rye — checkout API for Amazon & all Shopify stores</div>
+    </div>
+  </div>
+  <div class="infobar" style="margin-top:22px;">
+    <span class="ib-label">⚡</span>
+    Entry barrier is near zero. This infrastructure exists TODAY — any seller's product can be purchased via chat without visiting Amazon.com.&nbsp;
+    <span style="color:var(--ice); font-style:italic;">技术门槛极低，此类基础设施今天已存在。</span>
+  </div>
+</section>
+
+<!-- ══ S6 Platform Risks ═══════════════════════════════════════ -->
+<section class="slide light red-bar" id="s6">
+  <div class="tag red">PART 2 · PLATFORM RISK</div>
+  <h2 class="h2">Three Risks the Platform Cannot Ignore</h2>
+  <p class="sub">从卖家视角观察到的三个平台侧风险</p>
+  <div class="risk-list">
+    <div class="risk r1">
+      <div><span class="rnum" style="color:var(--red);">01</span><span class="rtitle">Ad Revenue at Risk &nbsp;</span><span class="rcn">广告收入受冲击</span></div>
+      <div class="rdesc">When a buyer orders via Agent, the search results page is bypassed entirely — zero ad impressions. Amazon earns ~$47B/yr from ads. This is a structural threat. &nbsp;/&nbsp; 买家通过 Agent 下单，搜索页被完全绕过，广告曝光归零。亚马逊每年约 470 亿美元广告收入面临结构性威胁。</div>
+    </div>
+    <div class="risk r2">
+      <div><span class="rnum" style="color:var(--accent);">02</span><span class="rtitle">Behavioral Data Bypassed &nbsp;</span><span class="rcn">用户意图数据旁路</span></div>
+      <div class="rdesc">Amazon's moat is behavioral data — what users search, browse, compare. Agent-mediated purchases bypass this entirely, starving Rufus of training signals. &nbsp;/&nbsp; 亚马逊的护城河是行为数据。Agent 中介购买完全绕过这一环节，使 Rufus 失去训练信号。</div>
+    </div>
+    <div class="risk r3">
+      <div><span class="rnum" style="color:var(--teal);">03</span><span class="rtitle">Customer Experience Escapes &nbsp;</span><span class="rcn">客户体验失控</span></div>
+      <div class="rdesc">Reviews, returns, repeat-purchase nudges — Amazon's entire post-purchase loyalty loop disappears when the relationship lives in a third-party chat app. &nbsp;/&nbsp; 评论、退货、复购引导——当关系存在于第三方 App 时，亚马逊所有售后忠诚机制都消失了。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S7 Wake-Up Call ════════════════════════════════════════ -->
+<section class="slide dark" id="s7">
+  <div style="text-align:center; margin-bottom:28px;">
+    <div class="tag accent">OUR RESPONSE</div>
+    <h2 class="h2" style="margin-top:10px;">This Gave Us a Wake-Up Call</h2>
+    <p style="color:var(--ice); font-style:italic; margin-top:8px; font-size:0.95rem;">这件事让我们重新定义：作为卖家，「可见性战场」究竟在哪里？</p>
+  </div>
+  <div class="ba">
+    <div class="ba-col before">
+      <div class="ba-label before">BEFORE &nbsp;之前</div>
+      <ul>
+        <li>Listing = keyword container &nbsp; Listing 就是关键词容器</li>
+        <li>A9 rank = our only battlefield &nbsp; A9 排名是唯一战场</li>
+        <li>More keywords = better visibility &nbsp; 关键词越多越好</li>
+        <li>Reviews = social proof only &nbsp; 评论只是社交证明</li>
+      </ul>
+    </div>
+    <div class="ba-arrow">→</div>
+    <div class="ba-col after">
+      <div class="ba-label after">AFTER &nbsp;现在</div>
+      <ul>
+        <li>Listing = structured knowledge system &nbsp; 结构化产品知识系统</li>
+        <li>Rufus visibility = the new battlefield &nbsp; Rufus 可见性是新战场</li>
+        <li>COSMO relations = AI comprehension &nbsp; COSMO 关系 = AI 可理解度</li>
+        <li>Q&A + Reviews = AI training data &nbsp; Q&A + 评论 = AI 训练信号</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S8 Judgment ════════════════════════════════════════════ -->
+<section class="slide light teal-bar" id="s8">
+  <div class="tag teal">PART 3 · OUR RESPONSE</div>
+  <h2 class="h2">Our Judgment: Traffic Divergence Is Coming</h2>
+  <p class="sub">我们的判断：能被 AI 召回与不能召回的产品，流量将在 2–3 年内明显分化</p>
+  <div class="timeline">
+    <div class="tl-line"></div>
+    <div class="tl-items" style="margin-top:14px;">
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--teal);"></div>
+        <div class="tl-card" style="border-top:4px solid var(--teal);">
+          <div class="tl-year" style="color:var(--teal);">Now &nbsp;现在</div>
+          <div class="tl-desc">Early adopters rebuild Listings for AI recall<br>先行者重构 Listing 结构</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--accent);"></div>
+        <div class="tl-card" style="border-top:4px solid var(--accent);">
+          <div class="tl-year" style="color:var(--accent);">1–2 Yrs &nbsp;1-2年</div>
+          <div class="tl-desc">Rufus drives measurable traffic split<br>流量分化开始显现</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--red);"></div>
+        <div class="tl-card" style="border-top:4px solid var(--red);">
+          <div class="tl-year" style="color:var(--red);">3–5 Yrs &nbsp;3-5年</div>
+          <div class="tl-desc">AI-invisible products lose relevance<br>AI 不可见产品逐步失效</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="infobar" style="margin-top:28px;">
+    This is why we started acting now — not waiting for the market to confirm what we already see.&nbsp;
+    <span style="color:var(--ice); font-style:italic;">这是我们提前布局的原因，而不是等市场来告诉我们。</span>
+  </div>
+</section>
+
+<!-- ══ S9 Listing Rethink ══════════════════════════════════════ -->
+<section class="slide light" id="s9">
+  <div class="tag">PART 3 · LISTING RETHINK</div>
+  <h2 class="h2">From Keyword Container to Knowledge System</h2>
+  <p class="sub">从「关键词容器」到「结构化产品知识系统」— COSMO 改变了 Rufus 识别产品的方式</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:32px;">
+    <!-- 左：旧认知 -->
+    <div style="background:#1a1a1a;border:1.5px solid rgba(220,38,38,.25);border-radius:12px;padding:26px;">
+      <div style="font-size:0.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#DC2626;margin-bottom:16px;">❌ Old Logic &nbsp;·&nbsp; Traditional Amazon SEO</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:0.9rem;color:var(--mid);padding:10px 14px;background:rgba(239,68,68,.1);border-radius:8px;border-left:3px solid #ef4444;">Search: Keyword exact match &nbsp;<span style="color:var(--muted);font-style:italic;">关键词精确匹配</span><br><span style="font-size:0.8rem;color:var(--muted);">"waterproof hiking backpack 60L"</span></div>
+        <div style="font-size:0.9rem;color:var(--mid);padding:10px 14px;background:rgba(239,68,68,.1);border-radius:8px;border-left:3px solid #ef4444;">Ranking: Keyword density + sales + reviews &nbsp;<span style="color:var(--muted);font-style:italic;">关键词密度 + 销量 + 评分</span></div>
+        <div style="font-size:0.9rem;color:var(--mid);padding:10px 14px;background:rgba(239,68,68,.1);border-radius:8px;border-left:3px solid #ef4444;">Content: Pack in as many keywords as possible &nbsp;<span style="color:var(--muted);font-style:italic;">尽量多塞关键词</span></div>
+        <div style="font-size:0.9rem;color:var(--mid);padding:10px 14px;background:rgba(239,68,68,.1);border-radius:8px;border-left:3px solid #ef4444;">Trust signal: Review count + star rating &nbsp;<span style="color:var(--muted);font-style:italic;">评论数量 + 星级</span></div>
+      </div>
+    </div>
+    <!-- 右：新认知 -->
+    <div style="background:#1a1a1a;border:1.5px solid rgba(13,148,136,.35);border-radius:12px;padding:26px;">
+      <div style="font-size:0.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:16px;">✅ Rufus GEO &nbsp;·&nbsp; New Logic</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="font-size:0.9rem;color:var(--mid);padding:10px 14px;background:rgba(255,107,53,.1);border-radius:8px;border-left:3px solid #ff6b35;">Search: Natural language conversation &nbsp;<span style="color:var(--muted);font-style:italic;">自然语言对话</span><br><span style="font-size:0.8rem;color:var(--muted);">"What do I need for a weekend camping trip?"</span></div>
+        <div style="font-size:0.9rem;color:var(--mid);padding:10px 14px;background:rgba(255,107,53,.1);border-radius:8px;border-left:3px solid #ff6b35;">Recall: 15 COSMO relation coverage + intent match &nbsp;<span style="color:var(--muted);font-style:italic;">15种关系覆盖 + 意图匹配</span></div>
+        <div style="font-size:0.9rem;color:var(--mid);padding:10px 14px;background:rgba(255,107,53,.1);border-radius:8px;border-left:3px solid #ff6b35;">Content: Answer real buyer questions, scene-first &nbsp;<span style="color:var(--muted);font-style:italic;">回答真实问题，场景优先</span></div>
+        <div style="font-size:0.9rem;color:var(--mid);padding:10px 14px;background:rgba(255,107,53,.1);border-radius:8px;border-left:3px solid #ff6b35;">Trust signal: UGC = Ground Truth &nbsp;<span style="color:var(--muted);font-style:italic;">Q&A + 评论权重高于品牌自述</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="infobar" style="margin-top:22px;">
+    <span class="ib-label">Core Principle:</span>
+    Every sentence in a Listing should be recognizable by COSMO as evidence for a specific relation type — not just a keyword signal.&nbsp;
+    <span style="color:var(--ice);font-style:italic;">Listing 写的每一句话，都应该能被 COSMO 识别为某种关系类型的证据。</span>
+  </div>
+</section>
+
+<!-- ══ S10 COSMO ═══════════════════════════════════════════════ -->
+<!-- ══ S10 COSMO ═══════════════════════════════════════════════ -->
+<section class="slide light" id="s10">
+  <div class="tag">PART 3 · COSMO FRAMEWORK</div>
+  <h2 class="h2">COSMO: The 15-Relation Framework Behind Rufus</h2>
+  <p class="sub">Rufus 底层的结构化关系 — 我们用它审计每一个 Listing，确保 AI 能全面理解产品</p>
+  <p style="font-size:0.82rem; color:var(--muted); margin-top:10px;">COSMO defines 15 (head, relation, tail) triples for RAG-based product recall. We test every Listing against all 15 before going live. Passing score: ≥10/15 ✅</p>
+  <div class="cosmo">
+    <div class="cosmo-card ct1">
+      <div class="cosmo-rel">USED_FOR_FUNC</div>
+      <div class="cosmo-q">What is it mainly used for?&nbsp; 主要功能是什么？</div>
+    </div>
+    <div class="cosmo-card ct2">
+      <div class="cosmo-rel">USED_FOR_EVE &nbsp;⚠️</div>
+      <div class="cosmo-q">What occasion / activity?&nbsp; 适合什么场合？（最易漏）</div>
+    </div>
+    <div class="cosmo-card ct3">
+      <div class="cosmo-rel">USED_FOR_AUD</div>
+      <div class="cosmo-q">Who is it designed for?&nbsp; 为谁设计？</div>
+    </div>
+    <div class="cosmo-card ct1">
+      <div class="cosmo-rel">CAPABLE_OF</div>
+      <div class="cosmo-q">What special capability?&nbsp; 有什么特殊能力？</div>
+    </div>
+    <div class="cosmo-card ct2">
+      <div class="cosmo-rel">USED_ON &nbsp;⚠️</div>
+      <div class="cosmo-q">What season / time?&nbsp; 什么季节使用？（最易漏）</div>
+    </div>
+    <div class="cosmo-card ct3">
+      <div class="cosmo-rel">USED_WITH</div>
+      <div class="cosmo-q">What does it pair with?&nbsp; 通常搭配什么？</div>
+    </div>
+  </div>
+  <div class="infobar" style="margin-top:16px; font-size:0.82rem;">
+    <span class="ib-label">Passing score:</span> ≥10 / 15 relations covered ✅ before any Listing goes live.&nbsp;
+    High-priority gaps: <strong style="color:var(--accent);">USED_FOR_EVE</strong> and <strong style="color:var(--accent);">USED_ON</strong> — most Chinese Listings score ❌ on both.
+    &nbsp;<span style="color:var(--ice); font-style:italic;">及格线：15 项中至少 10 项覆盖到位，低于及格线不允许上架。</span>
+  </div>
+</section>
+
+<!-- ══ S11 Before/After Example ══════════════════════════════ -->
+<section class="slide light" id="s11">
+  <div class="tag">PART 3 · REAL EXAMPLE</div>
+  <h2 class="h2">What the Audit Looks Like in Practice</h2>
+  <p class="sub">实操案例：一个产品的 Rufus 诊断 before / after</p>
+  <div class="cards c2" style="margin-top:24px;">
+    <div class="card">
+      <div class="ct" style="background:var(--red);"></div>
+      <div style="margin-top:12px;">
+        <div class="ctitle" style="color:var(--red);">BEFORE — Keyword-Stuffed &nbsp;优化前</div>
+        <div style="font-size:0.8rem; color:var(--mid); margin-top:12px; line-height:1.7;">
+          <strong>Title:</strong><br>
+          <span style="color:var(--muted);">Waterproof Hiking Backpack 60L Large Capacity Men Women Outdoor Camping Travel Gift Bag Pack</span><br><br>
+          <strong>Bullets:</strong><br>
+          <span style="color:var(--muted);">• IP68 waterproof • 60L large capacity • Aluminum frame • Ventilated panel • 2.1lbs</span><br><br>
+          <strong>COSMO:</strong>&nbsp;
+          <span style="color:var(--teal);">✅ FUNC</span>&nbsp;
+          <span style="color:var(--red);">❌ EVE ❌ AUD ❌ ON ❌ WITH ❌ CAPABLE</span><br>
+          <strong style="color:var(--red);">Score: 2/15 &nbsp;❌ NOT READY</strong>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="border-color:var(--teal);">
+      <div class="ct" style="background:var(--teal);"></div>
+      <div style="margin-top:12px;">
+        <div class="ctitle" style="color:var(--teal);">AFTER — Knowledge-Structured &nbsp;优化后</div>
+        <div style="font-size:0.8rem; color:var(--mid); margin-top:12px; line-height:1.7;">
+          <strong>Title:</strong><br>
+          <span style="color:var(--muted);">XYZ 60L Backpacking Pack for 3-5 Day Thru-Hikes — Waterproof Trekking Backpack, Adjustable Torso for Men & Women, Ideal for Summer/Fall Trail Hiking</span><br><br>
+          <strong>COSMO:</strong><br>
+          <span style="color:var(--teal);">✅ FUNC &nbsp;✅ EVE &nbsp;✅ AUD &nbsp;✅ ON &nbsp;✅ WITH &nbsp;✅ CAPABLE</span><br>
+          <span style="color:var(--accent);">⚠️ LOC &nbsp;⚠️ COMPETES_WITH</span>&nbsp;
+          <span style="color:var(--red);">❌ COMPOSED_OF</span><br>
+          <strong style="color:var(--teal);">Score: 10/15 &nbsp;✅ APPROVED</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S12 Workflow ════════════════════════════════════════════ -->
+<section class="slide light" id="s12">
+  <div class="tag">PART 3 · OUR WORKFLOW</div>
+  <h2 class="h2">How We Work Now: 3 Mandatory Steps</h2>
+  <p class="sub">我们现在的工作方式：每个新品上架前必须完成的三步</p>
+  <div class="risk-list" style="margin-top:28px;">
+    <div class="risk r3" style="background:#1a1a1a;">
+      <div><span class="rnum" style="color:var(--teal);">01</span><span class="rtitle">Rufus 15-Question Audit &nbsp;</span><span class="rcn">Rufus 15 问审计</span></div>
+      <div class="rdesc">Every Listing must pass a 15-relation COSMO coverage check before going live. Min score: 10/15 ✅. Failed Listings are revised, not shipped. &nbsp;/&nbsp; 每个 Listing 上架前必须通过 15 关系覆盖检测，及格线 10/15，不及格不允许上架。</div>
+    </div>
+    <div class="risk r2" style="background:#1a1a1a;">
+      <div><span class="rnum" style="color:var(--accent);">02</span><span class="rtitle">Q&A as Priority 1 &nbsp;</span><span class="rcn">Q&A 是最高优先级</span></div>
+      <div class="rdesc">Q&A carries the highest Rufus weighting (UGC = Ground Truth to Rufus). We publish 15+ Q&As covering 10+ COSMO relations before launch. &nbsp;/&nbsp; Q&A 的 Rufus 权重最高，我们在上架前发布 15 条以上 Q&A，覆盖 10 种以上 COSMO 关系。</div>
+    </div>
+    <div class="risk r1" style="background:#1a1a1a;">
+      <div style="border-left-color:var(--navy) !important;"><span class="rnum" style="color:var(--navy);">03</span><span class="rtitle">Review Language Backfill &nbsp;</span><span class="rcn">评论语言回灌</span></div>
+      <div class="rdesc">We mine competitor reviews, extract buyer language by COSMO relation type, and backfill into bullets and Q&A — because Rufus trusts UGC more than brand copy. &nbsp;/&nbsp; 挖掘竞品评论语言，按关系类型回灌到五点和 Q&A，因为 Rufus 对 UGC 的信任度高于品牌自述。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S12b Skill Workflow Detail ════════════════════════════ -->
+<section class="slide light" id="s12b">
+  <div class="tag">PART 3 · SKILL IN DETAIL</div>
+  <h2 class="h2">The 10-Step Skill: How It Actually Runs</h2>
+  <p class="sub">Rufus GEO Optimizer Skill — 渐进式加载，每步读一个参考文件、执行一件事，不跳步</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px;">
+    <div style="background:#1a1a1a;border:1.5px solid rgba(244,163,34,.35);border-radius:10px;padding:18px 20px;">
+      <div style="font-size:0.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Step 01–02 &nbsp;·&nbsp; 前置必做</div>
+      <div style="font-size:0.88rem;color:var(--mid);line-height:1.75;"><strong>01</strong> &nbsp;产品知识收集 — 调用 LinkFox API 拉取 Listing 数据 + 竞品评论<br><strong>02</strong> &nbsp;Rufus 15问模拟 — 对照 COSMO 关系逐一打分，找出 ✅/⚠️/❌，及格线 <strong style="color:var(--accent);">10/15</strong></div>
+    </div>
+    <div style="background:#1a1a1a;border:1.5px solid var(--border);border-radius:10px;padding:18px 20px;">
+      <div style="font-size:0.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-bottom:10px;">Step 03–06 &nbsp;·&nbsp; 文案重构</div>
+      <div style="font-size:0.88rem;color:var(--mid);line-height:1.75;"><strong>03</strong> &nbsp;关键词策略 — 传统 A9 + Rufus 语义关键词双层<br><strong>04</strong> &nbsp;标题撰写 — 150–200字符，前80字符含场景词，覆盖 ≥3 种关系<br><strong>05</strong> &nbsp;五点描述 — 场景痛点→机制→技术支撑，每条承载 2–3 种关系<br><strong>06</strong> &nbsp;A+ 内容 — alt-text 全填（Rufus 官方确认会读取图片标签）</div>
+    </div>
+    <div style="background:#1a1a1a;border:1.5px solid rgba(13,148,136,.35);border-radius:10px;padding:18px 20px;">
+      <div style="font-size:0.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;">Step 07 &nbsp;·&nbsp; Q&A 工程（权重最高）</div>
+      <div style="font-size:0.88rem;color:var(--mid);line-height:1.75;">生成 ≥15 条 Q&A，覆盖 ≥10 种 COSMO 关系。<br>Rufus 把 Q&A 当作 <strong style="color:var(--teal);">Ground Truth</strong>，信任度高于品牌自述。<br>六维评分中 Q&A 占 <strong style="color:var(--teal);">25分</strong>，权重最高。</div>
+    </div>
+    <div style="background:#1a1a1a;border:1.5px solid var(--border);border-radius:10px;padding:18px 20px;">
+      <div style="font-size:0.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-bottom:10px;">Step 08–10 &nbsp;·&nbsp; 收尾验证</div>
+      <div style="font-size:0.88rem;color:var(--mid);line-height:1.75;"><strong>08</strong> &nbsp;后台属性 — Occasion / Season / Target Audience 等字段必须与文案 100% 一致<br><strong>09</strong> &nbsp;六维评分 — 100分制，低于75分不上架<br><strong>10</strong> &nbsp;输出报告 — COSMO矩阵 + 评分明细 + 可直接用的改写文案</div>
+    </div>
+  </div>
+
+  <div class="infobar" style="margin-top:20px;font-size:0.85rem;">
+    <span class="ib-label">Six Dimensions:</span>
+    Title 15 &nbsp;·&nbsp; Bullets 20 &nbsp;·&nbsp; A+ 20 &nbsp;·&nbsp; <strong style="color:var(--accent);">Q&A 25</strong> &nbsp;·&nbsp; Data Consistency 10 &nbsp;·&nbsp; Image alt-text 10&nbsp;
+    <span style="color:var(--ice);font-style:italic;">标题15 + 五点20 + A+20 + Q&A <strong>25</strong> + 数据一致性10 + 图片alt-text10 = 100分</span>
+  </div>
+</section>
+
+<!-- ══ S13 Blind Spot ══════════════════════════════════════════ -->
+<section class="slide light" id="s13">
+  <div class="tag">PART 3 · THE GAP WE SEE</div>
+  <h2 class="h2">A Blind Spot We'd Love to See Solved</h2>
+  <p class="sub">我们观察到的缺口：Rufus 可见性对卖家来说是黑盒</p>
+  <div class="bsc">
+    <div class="bsc-col has">
+      <div class="bsc-title" style="color:var(--teal);">A9 has Search Query Performance &nbsp;✅</div>
+      <div class="bsc-item">Which search queries drove impressions</div>
+      <div class="bsc-item">CTR and CVR by keyword</div>
+      <div class="bsc-item">Weekly trend data</div>
+      <div class="bsc-item">Optimization feedback loop</div>
+      <div style="margin-top:12px; font-size:0.78rem; color:var(--muted); font-style:italic;">卖家可以看到：哪些搜索词带来了曝光、点击率、转化率、趋势数据。这是优化的基础。</div>
+    </div>
+    <div class="bsc-col miss">
+      <div class="bsc-title" style="color:var(--red);">Rufus has ??? &nbsp;❌</div>
+      <div class="bsc-item">Which questions Rufus shows us for — unknown</div>
+      <div class="bsc-item">Whether Rufus recommends or excludes us — unknown</div>
+      <div class="bsc-item">Which COSMO gaps hurt our recall — unknown</div>
+      <div class="bsc-item">Any conversation-level analytics — unknown</div>
+      <div style="margin-top:12px; font-size:0.78rem; color:var(--muted); font-style:italic;">卖家看不到：Rufus 在哪些问题下展示了我们的产品、哪些 COSMO 缺口导致召回失败。</div>
+    </div>
+  </div>
+  <div class="accent-bar" style="margin-top:20px;">
+    💡 &nbsp;If Amazon opened basic Rufus visibility data to sellers, Chinese sellers would be among the most aggressive adopters. We already run manual COSMO audits with spreadsheets. Give us a dashboard and we'll optimize relentlessly. &nbsp;/&nbsp; 如果亚马逊开放哪怕基础的 Rufus 可见性数据，中国卖家将是最积极的采用者。
+  </div>
+</section>
+
+<!-- ══ S14 Core Quote ══════════════════════════════════════════ -->
+<section class="slide dark2" id="s14">
+  <div style="max-width:860px; margin: 0 auto; width:100%;">
+    <div class="tag accent">OUR CORE BELIEF</div>
+    <div class="quote-box">
+      <div class="quote-en">"We stopped treating Listings as keyword containers and started building structured product knowledge systems — because that's what Rufus reads."</div>
+      <div class="quote-cn">「 我们不再把 Listing 当关键词容器，<br>而是构建结构化产品知识系统——<br>因为这才是 Rufus 真正在读的东西。 」</div>
+      <div class="quote-sig">— 任佳伟, 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ S15 Thank You ═══════════════════════════════════════════ -->
+<section class="slide dark" id="s15" style="text-align:center; align-items:center;">
+  <div>
+    <div class="tag accent" style="margin:0 auto 20px;">2026</div>
+    <h1 class="h1">Thank You &nbsp;/&nbsp; 谢谢</h1>
+    <div style="width:180px; height:3px; background:var(--accent); margin:28px auto;"></div>
+    <p style="color:var(--ice); font-size:1rem; margin-bottom:6px;">任佳伟</p>
+    <p style="color:var(--muted); font-size:0.88rem;">Contact: ___________</p>
+    <p style="color:var(--muted); font-size:0.88rem; margin-top:4px;">Cross-border E-Commerce &nbsp;·&nbsp; Amazon Seller & Researcher</p>
+    <p style="color:var(--muted); font-size:0.72rem; margin-top:48px; max-width:700px; margin-left:auto; margin-right:auto; line-height:1.7;">Data notes: Rufus usage stats from Amazon public earnings disclosures. Buy-anywhere Agent infrastructure based on BasisTheory + Rye public documentation. COSMO framework from Amazon research (2023). Marketplace Pulse 2025 estimates.</p>
+  </div>
+</section>
+
+<script>
+// Nav dot active state
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('#nav a');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && e.intersectionRatio > 0.4) {
+      dots.forEach(d => d.classList.remove('active'));
+      const idx = Array.from(slides).indexOf(e.target);
+      if (dots[idx]) dots[idx].classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+slides.forEach(s => io.observe(s));
+dots[0].classList.add('active');
+
+// Hide scroll hint after first scroll
+window.addEventListener('scroll', () => {
+  document.querySelector('.scroll-hint').style.opacity = '0';
+}, { once: true });
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  const active = document.querySelector('#nav a.active');
+  const idx = Array.from(dots).indexOf(active);
+  if ((e.key === 'ArrowDown' || e.key === ' ') && idx < dots.length - 1) {
+    e.preventDefault();
+    dots[idx+1].click();
+    slides[idx+1].scrollIntoView({behavior:'smooth'});
+  }
+  if (e.key === 'ArrowUp' && idx > 0) {
+    e.preventDefault();
+    slides[idx-1].scrollIntoView({behavior:'smooth'});
+  }
+});
+</script>
+</body>
+</html>
